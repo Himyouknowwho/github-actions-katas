@@ -61,3 +61,17 @@ jobs:
         run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
       - name: Push Docker
         run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
+  Component-test:
+    name: Component Test
+    needs: Docker-image
+    runs-on: ubuntu:latest
+    steps:
+    - name: Download docker file
+      uses: actions/download-artifact@v2
+      with:
+          name: code
+          path: .
+    - name: Run Component Test
+      run: chmod +x ci/component-test.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
+  
+  
