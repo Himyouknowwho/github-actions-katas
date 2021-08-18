@@ -25,7 +25,7 @@ jobs:
           name: code
           path: .
       - name: Test with Gradle
-        run:  ci/unit-test-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
   Build:
     name: Build
     needs: Clone-down
