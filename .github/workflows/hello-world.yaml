@@ -1,4 +1,4 @@
-name: hello-world
+name: Java CI
 on: push
 jobs:
   Clone-down:
@@ -25,7 +25,7 @@ jobs:
           name: code
           path: .
       - name: Test with Gradle
-      - run: chmod +x ci/build-app.sh && ci/build-app.sh
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
   Build:
     name: Build
     needs: Clone-down
@@ -38,7 +38,7 @@ jobs:
           name: code
           path: .
       - name: Build with Gradle
-      - run: chmod +x ci/build-app.sh && ci/build-app.sh
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Upload Repo
         uses: actions/upload-artifact@v2
         with:
