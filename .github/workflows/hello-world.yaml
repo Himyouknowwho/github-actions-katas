@@ -6,7 +6,7 @@ env:
 jobs:
   Clone-down:
     name: Clone Down
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: gradle:6-jdk11
     steps:
       - name: Clone-down
@@ -19,7 +19,7 @@ jobs:
   Test:
     name: Test
     needs: Clone-down
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: gradle:6-jdk11
     steps: 
       - name: Download Repo
@@ -32,7 +32,7 @@ jobs:
   Build:
     name: Build
     needs: Clone-down
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: gradle:6-jdk11
     steps:
       - name: Download Repo
@@ -50,7 +50,7 @@ jobs:
   Docker-image:
     name: Docker Image
     needs: [Test, Build]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Download Repo
         uses: actions/download-artifact@v2
@@ -63,7 +63,7 @@ jobs:
         run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
   Component-test:
     name: Component Test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: Docker-image
     steps:
     - name: Download docker file
